@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Page Title {% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    <h3>Index Template</h3>
+    {% block body %}
+        <p>Here is the Default Content of the Body-Block</p>
+    {% endblock %}
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %} Index Template {% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <style>
+            html {
+                width: 100%;
+                height: 100%;
+            }
+            body {
+                padding:0;
+                margin:0;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                font-family: Arial, Helvetica, sans-serif;
+                background: linear-gradient(silver, lightblue);
+            }
+            .container {
+                padding: 25px;
+                margin: 25px;
+                border: solid 1px gray;
+                border-radius: 35px;
+            }
+            .my-card {
+                margin:auto;
+                border:solid 1px silver;
+                border-radius:35px;
+                max-width:350px;
+                padding:5px 25px 25px 25px;
+                background: lightyellow;
+                box-shadow: 5px 5px 5px gray;
+            }
+        </style>
+    </head>
+    <body>
+
+        {% block topbar %}<h3>Index Template</h3>{% endblock %}
+
+        {% block body %}{% endblock %}
+
+        {% block javascripts %}{% endblock %}
+
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

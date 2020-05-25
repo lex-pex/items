@@ -6,7 +6,16 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+        {% block body %}
+            <h1>Here is the Default Content of the Body-Block</h1>
+            <p>
+                Here is the default para text...
+                {% block para %} And here the conditional... {% endblock %}
+                And here the end of the default text...
+            </p>
+        {% endblock %}
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>

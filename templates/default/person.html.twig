@@ -1,0 +1,33 @@
+{% extends 'default/index.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+
+    <div class="my-card">
+
+        <h2>Message: {{ message }}</h2>
+
+        {% if flag == 1 %}
+            Positive: {{ flag }}
+        {% else %}
+            Negative: {{ flag }}
+        {% endif %}
+
+        <hr />
+
+        {% for p in persons %}
+
+            - {{ p.firstName }} {{ p.lastName }} <br/>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+
+

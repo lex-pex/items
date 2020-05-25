@@ -1,0 +1,39 @@
+{% extends 'cats/main.html.twig' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <div class="my-card">
+
+        <h2>{{ title }}</h2>
+
+        <div style="text-align: left">
+
+            {% for c in categories %}
+                <p style="background:khaki;padding:5px">
+                    - #{{ c.id }}: {{ c.name }}
+                    <small>
+                        | <a href="/categories/{{ c.id }}/edit"> Edit </a>
+                        | <a href="#" onclick="event.preventDefault();
+                                                 document.getElementById('delete-form-{{ c.id }}').submit();"> Del </a>
+                        <form action="{{ path('category_delete') }}" method="post" id="delete-form-{{ c.id }}" style="display:none">
+                            <input type="number" name="id" value="{{ c.id }}">
+                            <input type="submit" value="Del">
+                        </form>
+                    </small>
+                </p>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+
+

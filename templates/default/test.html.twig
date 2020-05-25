@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>{{ message }}</h1>
+
+    {% if flag == 1 %}
+        {% block para %} Positive: {{ flag }} {% endblock %}
+    {% else %}
+        Negative: {{ flag }}
+    {% endif %}
+
+    {#{% for (i = 0; i < 0; i ++) %}#}
+        {#{{ i }}#}
+    {#{% endfor %}#}
+
+{% endblock %}
+
