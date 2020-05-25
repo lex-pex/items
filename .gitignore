@@ -1,5 +1,4 @@
 ###> symfony/framework-bundle ###
-/.env
 /.env.local
 /.env.local.php
 /.env.*.local
@@ -16,3 +15,4 @@
 ###< symfony/phpunit-bridge ###
 .env
 .idea
+.idea/workspace.xml
