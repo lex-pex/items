@@ -136,8 +136,12 @@ class CategoryController extends AbstractController {
      * @param $id
      * @return Response
      */
-    public function show(int $id)
+    public function show($id)
     {
+        if(!$id || !is_numeric($id)) {
+            return new Response(
+            '<h1 style="text-align:center">There is no such page... sorry</h1>');
+        }
         $doctrine = $this->getDoctrine();
         $category = $doctrine
             ->getRepository(BlogCategory::class)
@@ -148,8 +152,12 @@ class CategoryController extends AbstractController {
             'title' => 'Show Category'
         ]);
     }
-
 }
+
+
+
+
+
 
 
 

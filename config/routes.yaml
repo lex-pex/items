@@ -10,17 +10,19 @@ app_test:
 #    path: /lucky/number
 #    controller: App\Controller\Add\DefaultController::number
 
+# action sample
 app_tests:
     path: /inex_action
     controller: App\Controller\Add\DefaultController:indexAction
 
 #add:
 #    path: /add
-#    controller: App\Controller\Admin\HomeController:add
+#    controller: App\Controller\Add\AddController:add
 
+# Routes Duplication, with /categories/search (post)
 search:
     path: /search
-    controller: App\Controller\Blog\BlogController:search
+    controller: App\Controller\Blog\CategoryController:search
 
 category_delete:
     path: /category_delete

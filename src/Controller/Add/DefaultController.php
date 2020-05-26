@@ -14,6 +14,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DefaultController extends AbstractController {
 
+    /**
+     * Sample Action by Route from Yaml-file
+     * @return Response
+     */
     public function indexAction() {
         return new Response('indexAction');
     }
@@ -60,12 +64,10 @@ class DefaultController extends AbstractController {
      * @Route("/poster/resource", methods={"POST"})
      */
     public function postResource() {
-
         $nestedObject = new \stdClass();
         $nestedObject->id = 55;
         $nestedObject->title = 'Mock Object';
         $nestedObject->array = ['one', 'two', 'three'];
-
         $data = [
             'id' => 245,
             'name' => 'Center',
@@ -75,7 +77,6 @@ class DefaultController extends AbstractController {
             ],
             'obj' => $nestedObject
         ];
-
         return new Response(
             json_encode($data)
         );
@@ -87,7 +88,6 @@ class DefaultController extends AbstractController {
     public function number()
     {
         $number = random_int(0, 100);
-
         return $this->render('lucky/number.html.twig', [
             'number' => $number,
         ]);

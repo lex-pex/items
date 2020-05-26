@@ -12,7 +12,7 @@ class AddController extends AbstractController {
      * @Route("/add", methods={"GET"})
      */
     public function add() {
-        return new Response('admin');
+        return new Response('AddController::add');
     }
 
 }
