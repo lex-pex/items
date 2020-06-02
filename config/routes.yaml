@@ -28,3 +28,7 @@ category_delete:
     path: /category_delete
     controller: App\Controller\Blog\CategoryController:destroy
 
+post_delete:
+    path: /post_delete
+    controller: App\Controller\Blog\BlogPostController:destroy
+
