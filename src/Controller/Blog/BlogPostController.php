@@ -41,7 +41,7 @@ class BlogPostController extends AbstractController {
         return $this->render(
             'posts/index.html.twig', [
             'posts' => $posts,
-            'title' => 'Posts'
+            'title' => 'Posts',
         ]);
     }
 
@@ -123,6 +123,8 @@ class BlogPostController extends AbstractController {
      */
     public function destroy(Request $request)
     {
+        return new Response("destroy: " . $request->get('id'));
+
         $doctrine = $this->getDoctrine();
         $m = $doctrine->getManager();
         $id = $request->get('id');
