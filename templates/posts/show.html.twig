@@ -1,23 +1,14 @@
-{% extends 'cats/main.html.twig' %}
+{% extends 'layout/main.html.twig' %}
 
 {% block title %}{{ title }}{% endblock %}
 
-{% block body %}
-
-<div class="container">
-
-    <div class="my-card">
-
-        <h2>Category Name: </h2>
-
-        <p>
-            {{ category.name }}
-        </p>
-
+{% block canvas %}
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content }}</p>
+        </div>
     </div>
-
-</div>
-
 {% endblock %}
 
 

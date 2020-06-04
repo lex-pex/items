@@ -1,28 +1,48 @@
-{% extends 'cats/main.html.twig' %}
+{% extends 'layout/main.html.twig' %}
 
 {% block title %}{{ title }}{% endblock %}
 
-{% block body %}
+{% block canvas %}
 
-<div class="container">
+    <h2>{{ title }}</h2>
 
-    <div class="my-card">
+    <form method="POST" action="/posts/store">
 
-        <h2>{{ title }}</h2>
+        <div class="form-group row">
+            <label for="title" class="col-md-4 col-form-label text-md-right">Title</label>
 
-        <form action="/categories/store" method="post" class="my-form">
-            <p>
-                <input name="name" type="text">
-            </p>
-            <p>
-                <input type="submit">
-            </p>
-        </form>
+            <div class="col-md-6">
+                <input id="title" type="text" class="form-control " name="title" value="" required autocomplete="title" autofocus>
+            </div>
+        </div>
 
-    </div>
+        <div class="form-group row">
+            <label for="content" class="col-md-4 col-form-label text-md-right">Content Text</label>
 
-</div>
+            <div class="col-md-6">
+                <textarea id="content" class="form-control " name="content" required autocomplete="content"></textarea>
+            </div>
+        </div>
 
+        <div class="form-group row">
+            <label for="text" class="col-md-4 col-form-label text-md-right">Category:</label>
+            <div class="col-md-6">
+                <select class="form-control custom-select" name="category_id">
+                    <option value="1">General Events</option>
+                    <option value="2">Troubleshooting</option>
+                    <option value="3">Matching Hold</option>
+                    <option value="4">Further Goals</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row mb-0">
+            <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+        </div>
+
+    </form>
 
 {% endblock %}
 

@@ -1,33 +1,29 @@
 {% extends 'layout/main.html.twig' %}
 {% block title %}{{ title }}{% endblock %}
 {% block canvas %}
-    <div class="container">
-        <!-- Example row of columns -->
-        <div class="row">
-
-            {% for p in posts %}
-            <div class="col-md-4">
-                <h2>{{ p.title }}</h2>
-                <p>
-                    {{ p.content }}
-                </p>
-                <p>
-                    id #{{ p.id }}:
-                    <a onclick="event.preventDefault();
-                            document.getElementById('delete-form-{{ p.id }}').submit();"
-                       class="btn btn-sm btn-outline-danger" href="#"  role="button">Del</a>
-                    <a class="btn btn-sm btn-outline-primary" href="/posts/{{ p.id }}/edit" role="button">Edit</a>
-                    <a class="btn btn-sm btn-outline-secondary" href="#" role="button">Read &raquo;</a>
-                </p>
-                <form action="{{ path('post_delete') }}" method="post" id="delete-form-{{ p.id }}" style="display:none">
-                    <input type="number" name="id" value="{{ p.id }}">
-                    <input type="submit" value="Del">
-                </form>
-            </div>
-            {% endfor %}
-        </div>
-        <hr>
-    </div> <!-- /container -->
+<div class="row">
+    {% for p in posts %}
+    <div class="col-md-4">
+        <h2>{{ p.title }}</h2>
+        <p>
+            {{ p.content }}
+        </p>
+        <p>
+            id #{{ p.id }}:
+            <a onclick="event.preventDefault();
+                    document.getElementById('delete-form-{{ p.id }}').submit();"
+               class="btn btn-sm btn-outline-danger" href="#"  role="button">Del</a>
+            <a class="btn btn-sm btn-outline-primary" href="/posts/{{ p.id }}/edit" role="button">Edit</a>
+            <a class="btn btn-sm btn-outline-secondary" href="#" role="button">Read &raquo;</a>
+        </p>
+        <form action="{{ path('post_delete') }}" method="post" id="delete-form-{{ p.id }}" style="display:none">
+            <input type="number" name="id" value="{{ p.id }}">
+            <input type="submit" value="Del">
+        </form>
+    </div>
+    {% endfor %}
+</div>
+<hr>
 {% endblock %}
 
 

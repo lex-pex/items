@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Blog;
 
+use DateTimeImmutable;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -104,8 +105,15 @@ class BlogPostController extends AbstractController {
      */
     public function store(Request $request) {
         $post = new BlogPost();
-        $name = $request->get('name');
-        $post->setName($name);
+        $title = $request->get('title');
+        $content = $request->get('content');
+        $category = $request->get('category_id');
+
+        $post->setTitle($title);
+        $post->setContent($content);
+        $post->setCategoryId($category);
+        $post->setCreated(new DateTimeImmutable(date('Y-m-d')));
+
         $doctrine = $this->getDoctrine();
         $doctrine->getManager()->persist($post);
         $doctrine->getManager()->flush();
@@ -123,15 +131,13 @@ class BlogPostController extends AbstractController {
      */
     public function destroy(Request $request)
     {
-        return new Response("destroy: " . $request->get('id'));
-
         $doctrine = $this->getDoctrine();
         $m = $doctrine->getManager();
         $id = $request->get('id');
         $post = $m->find(BlogPost::class, $id);
         $m->remove($post);
         $m->flush();
-        return $this->redirect('/categories');
+        return $this->redirect('/posts');
     }
 
     /**
