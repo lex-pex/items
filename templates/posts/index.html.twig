@@ -4,7 +4,7 @@
 <div class="row">
     {% for p in posts %}
     <div class="col-md-4">
-        <h2>{{ p.title }}</h2>
+        <h4 class="text-center">{{ p.title }}</h4>
         <p>{{ p.getShortContent }}</p>
         <p>
             id #{{ p.id }}:
@@ -12,7 +12,7 @@
                     document.getElementById('delete-form-{{ p.id }}').submit();"
                class="btn btn-sm btn-outline-danger" href="#"  role="button">Del</a>
             <a class="btn btn-sm btn-outline-primary" href="/posts/{{ p.id }}/edit" role="button">Edit</a>
-            <a class="btn btn-sm btn-outline-secondary" href="#" role="button">Read &raquo;</a>
+            <a class="btn btn-sm btn-outline-secondary" href="/posts/{{ p.id }}" role="button">Read &raquo;</a>
         </p>
         <form action="{{ path('post_delete') }}" method="post" id="delete-form-{{ p.id }}" style="display:none">
             <input type="number" name="id" value="{{ p.id }}">

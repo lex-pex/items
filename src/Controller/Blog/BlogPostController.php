@@ -39,7 +39,7 @@ class BlogPostController extends AbstractController {
         $doctrine = $this->getDoctrine();
         $posts = $doctrine
             ->getRepository(BlogPost::class)
-            ->findAll();
+            ->findBy([], ['id'=>'desc']);
         return $this->render(
             'posts/index.html.twig', [
             'posts' => $posts,
@@ -148,6 +148,10 @@ class BlogPostController extends AbstractController {
      */
     public function destroy(Request $request)
     {
+        return new Response(
+            'You try to delete item: #' . $request->get('id')
+        );
+        die();
         $doctrine = $this->getDoctrine();
         $m = $doctrine->getManager();
         $id = $request->get('id');
