@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Blog;
 
+use App\Entity\BlogCategory;
 use DateTimeImmutable;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,10 +57,14 @@ class BlogPostController extends AbstractController {
         $post = $doctrine
             ->getRepository(BlogPost::class)
             ->find($id);
+        $categories = $doctrine
+            ->getRepository(BlogCategory::class)
+            ->findAll();
         return $this->render(
             'posts/edit.html.twig', [
             'post' => $post,
-            'title' => 'Create Post Form'
+            'categories' => $categories,
+            'title' => 'Edit Post Form'
         ]);
     }
 
@@ -74,8 +79,15 @@ class BlogPostController extends AbstractController {
         $post = $doctrine
             ->getRepository(BlogPost::class)
             ->find($id);
-        $name = $request->get('name');
-        $post->setName($name);
+
+        $title = $request->get('title');
+        $content = $request->get('content');
+        $category = $request->get('category_id');
+
+        $post->setTitle($title);
+        $post->setContent($content);
+        $post->setCategoryId($category);
+
         $doctrine = $this->getDoctrine();
         $doctrine->getManager()->persist($post);
         $doctrine->getManager()->flush();
@@ -92,9 +104,14 @@ class BlogPostController extends AbstractController {
      */
     public function create()
     {
+        $doctrine = $this->getDoctrine();
+        $categories = $doctrine
+            ->getRepository(BlogCategory::class)
+            ->findAll();
         return $this->render(
             'posts/create.html.twig', [
-            'title' => 'Create Post Form'
+            'categories' => $categories,
+            'title' => 'Create Post Form',
         ]);
     }
 

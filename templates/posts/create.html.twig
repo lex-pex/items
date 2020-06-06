@@ -28,10 +28,9 @@
             <label for="text" class="col-md-4 col-form-label text-md-right">Category:</label>
             <div class="col-md-6">
                 <select class="form-control custom-select" name="category_id">
-                    <option value="1">General Events</option>
-                    <option value="2">Troubleshooting</option>
-                    <option value="3">Matching Hold</option>
-                    <option value="4">Further Goals</option>
+                    {% for c in categories %}
+                        <option value="{{ c.id }}">{{ c.name }}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
