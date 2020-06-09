@@ -4,7 +4,7 @@
 
 {% block canvas %}
 
-    <h2>{{ title }}</h2>
+    <h2 class="text-center p-3">{{ title }}</h2>
 
     <form method="POST" action="/posts/store">
 
@@ -28,8 +28,8 @@
             <label for="text" class="col-md-4 col-form-label text-md-right">Category:</label>
             <div class="col-md-6">
                 <select class="form-control custom-select" name="category_id">
-                    {% for c in categories %}
-                        <option value="{{ c.id }}">{{ c.name }}</option>
+                    {% for id, name in categories %}
+                        <option value="{{ id }}">{{ name }}</option>
                     {% endfor %}
                 </select>
             </div>

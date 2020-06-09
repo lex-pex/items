@@ -5,10 +5,17 @@
     {% for p in posts %}
     <div class="col-md-4 p-1">
         <div class="card">
-            <div class="card-header text-center">{{ p.title }}</div>
-            <div class="card-body">{{ p.getShortContent }}</div>
-            <div class="card-footer">
-                id: #{{ p.id }}, Category: #{{ p.categoryId }}
+            <div class="card-header text-center">
+                <div style="border-radius:3px;background:#09aabb;padding:5px;position:absolute;top:-5px;left:-5px;"> #{{ p.id }}</div>
+                {{ p.title }}
+            </div>
+            <div class="card-body">
+                <p>{{ p.getShortContent }}</p>
+                <small>
+                    Category: <a href="/categories/{{ p.categoryId }}">{{ categories[p.categoryId] }}</a>
+                </small>
+            </div>
+            <div class="card-footer text-small">
                 <a onclick="event.preventDefault();
                         document.getElementById('delete-form-{{ p.id }}').submit();"
                    class="btn btn-sm btn-outline-danger" href="#"  role="button">Del</a>

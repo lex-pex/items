@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller\Blog;
 
+use App\Entity\BlogPost;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -143,12 +144,21 @@ class CategoryController extends AbstractController {
             '<h1 style="text-align:center">There is no such page... sorry</h1>');
         }
         $doctrine = $this->getDoctrine();
-        $category = $doctrine
+        $posts = $doctrine
+            ->getRepository(BlogPost::class)
+            ->findBy(['category_id' => $id], ['id'=>'desc']);
+        $cats = $doctrine
             ->getRepository(BlogCategory::class)
-            ->find($id);
+            ->findBy([], ['id'=>'asc']);
+        $categories = [];
+        for($i = 0; $i < count($cats); $i++) {
+            $categories[$cats[$i]->getId()] = $cats[$i]->getName();
+        }
         return $this->render(
-            'cats/show.html.twig', [
-            'category' => $category,
+            'posts/index.html.twig', [
+            'categories' => $categories,
+            'category' => $id,
+            'posts' => $posts,
             'title' => 'Show Category'
         ]);
     }

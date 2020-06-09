@@ -40,9 +40,18 @@ class BlogPostController extends AbstractController {
         $posts = $doctrine
             ->getRepository(BlogPost::class)
             ->findBy([], ['id'=>'desc']);
+        $cats = $doctrine
+            ->getRepository(BlogCategory::class)
+            ->findBy([], ['id'=>'asc']);
+        $categories = [];
+        for($i = 0; $i < count($cats); $i++) {
+            $categories[$cats[$i]->getId()] = $cats[$i]->getName();
+        }
         return $this->render(
             'posts/index.html.twig', [
             'posts' => $posts,
+            'categories' => $categories,
+            'category' => 0,
             'title' => 'Posts',
         ]);
     }
@@ -57,13 +66,18 @@ class BlogPostController extends AbstractController {
         $post = $doctrine
             ->getRepository(BlogPost::class)
             ->find($id);
-        $categories = $doctrine
+        $cats = $doctrine
             ->getRepository(BlogCategory::class)
             ->findAll();
+        $categories = [];
+        for($i = 0; $i < count($cats); $i++) {
+            $categories[$cats[$i]->getId()] = $cats[$i]->getName();
+        }
         return $this->render(
             'posts/edit.html.twig', [
             'post' => $post,
             'categories' => $categories,
+            'category' => $post->getCategoryId(),
             'title' => 'Edit Post Form'
         ]);
     }
@@ -105,12 +119,17 @@ class BlogPostController extends AbstractController {
     public function create()
     {
         $doctrine = $this->getDoctrine();
-        $categories = $doctrine
+        $cats = $doctrine
             ->getRepository(BlogCategory::class)
             ->findAll();
+        $categories = [];
+        for($i = 0; $i < count($cats); $i++) {
+            $categories[$cats[$i]->getId()] = $cats[$i]->getName();
+        }
         return $this->render(
             'posts/create.html.twig', [
             'categories' => $categories,
+            'category' => 0,
             'title' => 'Create Post Form',
         ]);
     }
@@ -134,11 +153,8 @@ class BlogPostController extends AbstractController {
         $doctrine = $this->getDoctrine();
         $doctrine->getManager()->persist($post);
         $doctrine->getManager()->flush();
-        return $this->render(
-            'posts/show.html.twig', [
-            'post' => $post,
-            'title' => 'New Created Post'
-        ]);
+
+        return $this->redirect('/posts/' . $post->getId());
     }
 
     /**
@@ -176,9 +192,18 @@ class BlogPostController extends AbstractController {
         $post = $doctrine
             ->getRepository(BlogPost::class)
             ->find($id);
+        $cats = $doctrine
+            ->getRepository(BlogCategory::class)
+            ->findBy([], ['id'=>'asc']);
+        $categories = [];
+        for($i = 0; $i < count($cats); $i++) {
+            $categories[$cats[$i]->getId()] = $cats[$i]->getName();
+        }
         return $this->render(
             'posts/show.html.twig', [
             'post' => $post,
+            'categories' => $categories,
+            'category' => $post->getCategoryId(),
             'title' => 'Show Post'
         ]);
     }

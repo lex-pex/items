@@ -35,15 +35,22 @@
         </form>
     </div>
 </nav>
-{#<div style="height:75px"></div>#}
 <main role="main">
     <div class="jumbotron">
-        <div class="container">
-
-        </div>
+        <div class="container"></div>
     </div>
-    <div class="container">
-        {% block canvas %}{% endblock %}
+    <div class="container-fluid">
+        <div class="row no-gutters">
+            <div class="col-2">
+                <a href="/posts" class="page-link mb-3 {{ category == 0 ? 'bg-info text-light' : '' }}">Posts</a>
+                {% for id, c in categories %}
+                    <a href="/categories/{{ id }}" class="page-link mb-3 {{ category == id ? 'bg-info text-light' : '' }}">{{ c }}</a>
+                {% endfor %}
+            </div>
+            <div class="col-10">
+                {% block canvas %}{% endblock %}
+            </div>
+        </div>
     </div>
 </main>
 <footer class="container">
