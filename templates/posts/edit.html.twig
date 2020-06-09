@@ -6,8 +6,8 @@
 
     <h2 class="text-center p-3">{{ title }}</h2>
 
-    <form method="post" action="/posts/store">
-
+    <form method="post" action="/posts/update">
+        <input type="hidden" name="id" value="{{ post.id }}">
         <div class="form-group row">
             <label for="title" class="col-md-4 col-form-label text-md-right">Title</label>
 
@@ -18,9 +18,8 @@
 
         <div class="form-group row">
             <label for="content" class="col-md-4 col-form-label text-md-right">Content Text</label>
-
             <div class="col-md-6">
-                <textarea id="content" class="form-control " name="content" required autocomplete="content">{{ post.content }}</textarea>
+                <textarea id="content" class="form-control" rows="6" name="content" required autocomplete="content">{{ post.content }}</textarea>
             </div>
         </div>
 

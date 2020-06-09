@@ -7,7 +7,26 @@
         <div class="col-lg-5 col-md-6 col-sm-12">
             <div class="card-header text-center">{{ post.title }}</div>
             <div class="card-body">{{ post.content }}</div>
-            <div class="card-footer">id: #{{ post.id }}, Category: {{ post.categoryId }}</div>
+
+
+
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-6">
+                        id: #{{ post.id }}, Category: {{ post.categoryId }}
+                    </div>
+                    <div class="col-6 text-right">
+                        <a onclick="event.preventDefault();
+                                document.getElementById('delete-form-{{ post.id }}').submit();"
+                           class="btn btn-sm btn-outline-danger" href="#"  role="button">Del</a>
+                        <a class="btn btn-sm btn-outline-primary" href="/posts/{{ post.id }}/edit" role="button">Edit</a>
+                        <form action="{{ path('post_delete') }}" method="post" id="delete-form-{{ post.id }}" style="display:none">
+                            <input type="number" name="id" value="{{ post.id }}">
+                            <input type="submit" value="Del">
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

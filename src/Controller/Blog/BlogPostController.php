@@ -105,11 +105,7 @@ class BlogPostController extends AbstractController {
         $doctrine = $this->getDoctrine();
         $doctrine->getManager()->persist($post);
         $doctrine->getManager()->flush();
-        return $this->render(
-            'posts/show.html.twig', [
-            'post' => $post,
-            'title' => 'New Edited Post'
-        ]);
+        return $this->redirect('/posts/' . $post->getId());
     }
 
     /**
