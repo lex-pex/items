@@ -2,6 +2,7 @@
 namespace App\Controller\Blog;
 
 use App\Entity\BlogPost;
+use Assist\Pager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -159,6 +160,7 @@ class CategoryController extends AbstractController {
             'categories' => $categories,
             'category' => $id,
             'posts' => $posts,
+            'pager' => Pager::widget(20, 6, 1),
             'title' => 'Show Category'
         ]);
     }

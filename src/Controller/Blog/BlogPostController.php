@@ -2,6 +2,7 @@
 namespace App\Controller\Blog;
 
 use App\Entity\BlogCategory;
+use Assist\Pager;
 use DateTimeImmutable;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,13 +34,22 @@ class BlogPostController extends AbstractController {
 
     /**
      * @Route("/posts", methods={"GET"})
+     * @param Request $request
+     * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $doctrine = $this->getDoctrine();
-        $posts = $doctrine
-            ->getRepository(BlogPost::class)
-            ->findBy([], ['id'=>'desc']);
+        $repository = $doctrine
+            ->getRepository(BlogPost::class);
+        $p = $request->get('page');
+        $page = ($p && is_numeric($p)) ? abs($p) : 1;
+        $limit = 6;
+        $offset = $limit * ($page - 1);
+        $total = count($repository->findBy([], []));
+
+        $posts = $repository->findBy([], ['id'=>'desc'], $limit, $offset);
+
         $cats = $doctrine
             ->getRepository(BlogCategory::class)
             ->findBy([], ['id'=>'asc']);
@@ -52,6 +62,7 @@ class BlogPostController extends AbstractController {
             'posts' => $posts,
             'categories' => $categories,
             'category' => 0,
+            'pager' => Pager::widget($total, $limit, $page, '/posts/'),
             'title' => 'Posts',
         ]);
     }
