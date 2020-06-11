@@ -50,17 +50,10 @@ class BlogPostController extends AbstractController {
 
         $posts = $repository->findBy([], ['id'=>'desc'], $limit, $offset);
 
-        $cats = $doctrine
-            ->getRepository(BlogCategory::class)
-            ->findBy([], ['id'=>'asc']);
-        $categories = [];
-        for($i = 0; $i < count($cats); $i++) {
-            $categories[$cats[$i]->getId()] = $cats[$i]->getName();
-        }
         return $this->render(
             'posts/index.html.twig', [
             'posts' => $posts,
-            'categories' => $categories,
+            'categories' => BlogCategory::getCategoriesArray($doctrine),
             'category' => 0,
             'pager' => Pager::widget($total, $limit, $page, '/posts/'),
             'title' => 'Posts',

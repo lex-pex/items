@@ -135,32 +135,36 @@ class CategoryController extends AbstractController {
 
     /**
      * @Route("/categories/{id}", methods={"GET"})
+     * @param Request $request
      * @param $id
      * @return Response
      */
-    public function show($id)
+    public function show(Request $request,$id)
     {
         if(!$id || !is_numeric($id)) {
             return new Response(
             '<h1 style="text-align:center">There is no such page... sorry</h1>');
         }
+
         $doctrine = $this->getDoctrine();
-        $posts = $doctrine
-            ->getRepository(BlogPost::class)
-            ->findBy(['category_id' => $id], ['id'=>'desc']);
-        $cats = $doctrine
-            ->getRepository(BlogCategory::class)
-            ->findBy([], ['id'=>'asc']);
-        $categories = [];
-        for($i = 0; $i < count($cats); $i++) {
-            $categories[$cats[$i]->getId()] = $cats[$i]->getName();
-        }
+
+        $repository = $doctrine
+            ->getRepository(BlogPost::class);
+
+        $p = $request->get('page');
+        $page = ($p && is_numeric($p)) ? abs($p) : 1;
+        $limit = 6;
+        $offset = $limit * ($page - 1);
+        $total = count($repository->findBy(['category_id' => $id], []));
+
+        $posts = $repository->findBy(['category_id' => $id], ['id'=>'desc'], $limit, $offset);
+
         return $this->render(
             'posts/index.html.twig', [
-            'categories' => $categories,
+            'categories' => BlogCategory::getCategoriesArray($doctrine),
             'category' => $id,
             'posts' => $posts,
-            'pager' => Pager::widget(20, 6, 1),
+            'pager' => Pager::widget($total, $limit, $page),
             'title' => 'Show Category'
         ]);
     }

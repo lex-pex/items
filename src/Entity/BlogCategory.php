@@ -40,4 +40,15 @@ class BlogCategory
 
         return $this;
     }
+
+    public static function getCategoriesArray($doctrine) {
+        $cats = $doctrine
+            ->getRepository(BlogCategory::class)
+            ->findBy([], ['id'=>'asc']);
+        $categories = [];
+        for($i = 0; $i < count($cats); $i++) {
+            $categories[$cats[$i]->getId()] = $cats[$i]->getName();
+        }
+        return $categories;
+    }
 }
