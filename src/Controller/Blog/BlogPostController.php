@@ -14,20 +14,45 @@ use App\Entity\BlogPost;
 class BlogPostController extends AbstractController {
 
     /**
-     * @Route("/posts/search", methods={"POST"})
+     * @Route("/posts/search", methods={"GET"})
      * @param Request $request
      * @return Response
      */
     public function search(Request $request)
     {
+
         $pattern = $request->get('pattern');
+
         $doctrine = $this->getDoctrine();
-        $posts = $doctrine
-            ->getRepository(BlogPost::class)
-            ->findBy(['name' => $pattern]);
+
+        $repository = $doctrine
+            ->getRepository(BlogPost::class);
+
+        $p = $request->get('page');
+        $page = ($p && is_numeric($p)) ? abs($p) : 1;
+        $limit = 6;
+        $offset = $limit * ($page - 1);
+
+        $query = $repository->createQueryBuilder('p')
+            ->where('p.title LIKE :pattern')
+            ->orWhere('p.content LIKE :pattern')
+            ->setParameter('pattern', '%'.$pattern.'%')
+            ->addOrderBy('p.id', 'DESC')
+            ->getQuery();
+
+        $total = count($query->getResult());
+
+        $query->setFirstResult($offset);
+        $query->setMaxResults($limit);
+
+        $posts = $query->getResult();
+
         return $this->render(
             'posts/index.html.twig', [
             'posts' => $posts,
+            'category' => 0,
+            'categories' => BlogCategory::getCategoriesArray($doctrine),
+            'pager' => Pager::widget($total, $limit, $page, '/posts/search/'),
             'title' => 'Search Posts'
         ]);
     }
