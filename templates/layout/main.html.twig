@@ -17,26 +17,20 @@
     </button>
     <div class="collapse navbar-collapse" id="nav_bar">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"> <!--  active / disabled -->
+            <li class="nav-item"> <!-- class: active / disabled -->
                 <a class="nav-link" href="/posts/create">Add Post <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
                     <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something Else</a>
                 </div>
             </li>
         </ul>
         <form id="search_form" class="form-inline my-2 my-lg-0" method="get" action="">
             <input id="search_input" class="form-control form-control-sm mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            {#<a id="search_form" href="">#}
-                <button onclick="
-//                event.preventDefault();
-                document.getElementById('search_form').setAttribute('action', '/posts/search/' + document.getElementById('search_input').value)"
+                <button onclick="document.getElementById('search_form').setAttribute('action', '/posts/search/' + document.getElementById('search_input').value)"
                         class="btn btn-sm btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            {#</a>#}
         </form>
     </div>
 </nav>
