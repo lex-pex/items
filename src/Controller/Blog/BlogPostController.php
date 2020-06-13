@@ -14,15 +14,13 @@ use App\Entity\BlogPost;
 class BlogPostController extends AbstractController {
 
     /**
-     * @Route("/posts/search", methods={"GET"})
+     * @Route("/posts/search/{pattern}", methods={"GET"})
+     * @param string $pattern - parameter for search
      * @param Request $request
      * @return Response
      */
-    public function search(Request $request)
+    public function search(string $pattern, Request $request)
     {
-
-        $pattern = $request->get('pattern');
-
         $doctrine = $this->getDoctrine();
 
         $repository = $doctrine
@@ -52,7 +50,7 @@ class BlogPostController extends AbstractController {
             'posts' => $posts,
             'category' => 0,
             'categories' => BlogCategory::getCategoriesArray($doctrine),
-            'pager' => Pager::widget($total, $limit, $page, '/posts/search/'),
+            'pager' => Pager::widget($total, $limit, $page, '/posts/search/' . $pattern . '/'),
             'title' => 'Search Posts'
         ]);
     }
