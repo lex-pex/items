@@ -30,6 +30,11 @@ class BlogPost
     private $content;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image;
+
+    /**
      * @ORM\Column(type="date")
      */
     private $created;
@@ -66,6 +71,18 @@ class BlogPost
         $this->content = $content;
 
         return $this;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
     }
 
     /**
