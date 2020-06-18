@@ -10,7 +10,7 @@
                 {{ p.title }}
             </div>
             <div class="card-body">
-                <img src="/upload/img/posts/empty.jpg" width="100%" />
+                <img src="{{ p.image ? p.image : '/upload/img/posts/empty.jpg' }}" width="100%" />
                 <p>{{ p.getShortContent }}</p>
                 <small>
                     Category: <a href="/categories/{{ p.categoryId }}">{{ categories[p.categoryId] }}</a>

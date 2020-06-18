@@ -2,6 +2,7 @@
 namespace App\Controller\Blog;
 
 use App\Entity\BlogCategory;
+use Assist\ImageProcessor;
 use Assist\Pager;
 use DateTimeImmutable;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,6 +13,11 @@ use App\Entity\BlogPost;
 
 
 class BlogPostController extends AbstractController {
+
+    /**
+     * @var string path to store this items files
+     */
+    private $imageStorage = '/upload/img/posts/';
 
     /**
      * @Route("/posts/search/{pattern}", methods={"GET"})
@@ -129,6 +135,13 @@ class BlogPostController extends AbstractController {
         $post->setContent($content);
         $post->setCategoryId($category);
 
+        if($request->get('image_del')) {
+            ImageProcessor::delImageFolder($post->getImage());
+            $post->setImage('');
+        }
+
+        ImageProcessor::uploadImage($post, $this->imageStorage);
+
         $doctrine = $this->getDoctrine();
         $doctrine->getManager()->persist($post);
         $doctrine->getManager()->flush();
@@ -172,6 +185,7 @@ class BlogPostController extends AbstractController {
         $post->setContent($content);
         $post->setCategoryId($category);
         $post->setCreated(new DateTimeImmutable(date('Y-m-d')));
+        ImageProcessor::uploadImage($post, $this->imageStorage);
 
         $doctrine = $this->getDoctrine();
         $doctrine->getManager()->persist($post);

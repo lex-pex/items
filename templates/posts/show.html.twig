@@ -3,26 +3,29 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block canvas %}
-    <div class="row justify-content-center">
-        <div class="col-lg-5 col-md-6 col-sm-12">
-            <div class="card-header text-center">{{ post.title }}</div>
-            <div class="card-body">
-                <pre style="white-space: pre-wrap;">{{ post.content }}</pre>
-            </div>
-            <div class="card-footer">
-                <div class="row">
-                    <div class="col-6">
-                        id: #{{ post.id }}, Category: {{ post.categoryId }}
-                    </div>
-                    <div class="col-6 text-right">
-                        <a onclick="event.preventDefault();
-                                document.getElementById('delete-form-{{ post.id }}').submit();"
-                           class="btn btn-sm btn-outline-danger" href="#"  role="button">Del</a>
-                        <a class="btn btn-sm btn-outline-primary" href="/posts/{{ post.id }}/edit" role="button">Edit</a>
-                        <form action="{{ path('post_delete') }}" method="post" id="delete-form-{{ post.id }}" style="display:none">
-                            <input type="number" name="id" value="{{ post.id }}">
-                            <input type="submit" value="Del">
-                        </form>
+    <div class="row">
+        <div class="col-lg-6 col-md-8 col-sm-12">
+            <div class="card mx-3">
+                <div class="card-header text-center">{{ post.title }}</div>
+                <div class="card-body">
+                    <img src="{{ post.image ? post.image : '/upload/img/posts/empty.jpg' }}" width="100%" />
+                    <pre style="white-space: pre-wrap;">{{ post.content }}</pre>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-6">
+                            id: #{{ post.id }}, Category: {{ post.categoryId }}
+                        </div>
+                        <div class="col-6 text-right">
+                            <a onclick="event.preventDefault();
+                                    document.getElementById('delete-form-{{ post.id }}').submit();"
+                               class="btn btn-sm btn-outline-danger" href="#"  role="button">Del</a>
+                            <a class="btn btn-sm btn-outline-primary" href="/posts/{{ post.id }}/edit" role="button">Edit</a>
+                            <form action="{{ path('post_delete') }}" method="post" id="delete-form-{{ post.id }}" style="display:none">
+                                <input type="number" name="id" value="{{ post.id }}">
+                                <input type="submit" value="Del">
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
