@@ -87,13 +87,14 @@ class BlogPost
 
     /**
      * Short content to display on browse page
-     * @return null|string
+     * @return string
      */
     public function getShortContent(): ?string
     {
         $length = 100;
-        $postfix = $this->content < $length ? '...' : '';
-        return substr($this->content, 0, $length) . $postfix;
+        if(strlen($this->content) > $length)
+            return substr($this->content, 0, $length) . '...';
+        return $this->content;
     }
 
     public function getCreated(): ?\DateTimeInterface

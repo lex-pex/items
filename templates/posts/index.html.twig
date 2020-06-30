@@ -18,13 +18,12 @@
             </div>
             <div class="card-footer text-small">
                 <a onclick="event.preventDefault();
-                        document.getElementById('delete-form-{{ p.id }}').submit();"
+                        document.getElementById('delete-form-{{ p.id }}').submit()"
                    class="btn btn-sm btn-outline-danger" href="#"  role="button">Del</a>
                 <a class="btn btn-sm btn-outline-primary" href="/posts/{{ p.id }}/edit" role="button">Edit</a>
                 <a class="btn btn-sm btn-outline-secondary" href="/posts/{{ p.id }}" role="button">Read</a>
                 <form action="{{ path('post_delete') }}" method="post" id="delete-form-{{ p.id }}" style="display:none">
                     <input type="number" name="id" value="{{ p.id }}">
-                    <input type="submit" value="Del">
                 </form>
             </div>
         </div>
@@ -33,7 +32,7 @@
 </div>
 <hr>
     <div class="row justify-content-center">
-        <nav aria-label="Page navigation example">
+        <nav aria-label="page navigation">
             <ul class="pagination">
                 {% for p in pager %}
                 <li class="page-item {{ p['class'] }}"><a class="page-link" href="{{ p['urn'] }}">{{ p['label'] }}</a></li>
