@@ -219,7 +219,7 @@ class BlogPostController extends AbstractController {
     {
         if(!$id || !is_numeric($id)) {
             return new Response(
-            '<h1 style="text-align:center">There is no such page... sorry</h1>');
+            '<h1 style="text-align:center">There is no such a page...</h1>', 404);
         }
         $doctrine = $this->getDoctrine();
         $post = $doctrine
